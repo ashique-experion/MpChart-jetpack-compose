@@ -4,15 +4,21 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.experion.mpchartpoc.ui.theme.MpChartPocTheme
 import com.github.mikephil.charting.charts.BarChart
@@ -34,30 +40,29 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = Color.White
                 ) {
-                    BarChartTest()
+
+                    Column(
+                        modifier = Modifier
+                            .width(200.dp)
+                            .height(200.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxWidth()
+                                .height(300.dp)
+                        ) {
+
+                        }
+                        BarChartTest()
+                        Text(text = "hello")
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MpChartPocTheme {
-        Greeting("Android")
-    }
-}
 
 @Composable
 fun BarChartTest() {
@@ -71,6 +76,7 @@ fun BarChartTest() {
         BarEntry(4f, 400f),
         BarEntry(5f, 500f)
     )
+    barChart.accessibilityTraversalBefore
 
     val dataSet = BarDataSet(entries, "Label")
     val data = BarData(dataSet)
@@ -78,7 +84,10 @@ fun BarChartTest() {
     barChart.data = data
 
     AndroidView(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .width(200.dp)
+            .height(200.dp)
+        ,
         factory = { barChart },
 
     )
